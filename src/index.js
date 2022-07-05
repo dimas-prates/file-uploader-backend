@@ -1,20 +1,27 @@
+require("dotenv").config();
 const express = require("express");
 //log's lib
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-
+//importing static files to be access by /files route
+const path = require("path");
 const app = express();
 
 // Database setup
-const url = "localhost";
+const url = "dockervm";
 const port = 27017;
 const dbname = "upload";
 mongoose.connect(`mongodb://${url}:${port}/${dbname}`, {
   useNewUrlParser: true,
 });
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use(
+  "/files",
+  express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
+);
 app.use(require("./routes"));
 
 app.listen(3000, () => {
