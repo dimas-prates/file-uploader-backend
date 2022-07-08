@@ -10,10 +10,13 @@ const cors = require("cors");
 const app = express();
 
 // Database setup
-const url = "dockervm";
-const port = 27017;
-const dbname = "upload";
-mongoose.connect(`mongodb://${url}:${port}/${dbname}`, {
+// const url = "dockervm";
+// const port = 27017;
+// const dbname = "upload";
+// mongoose.connect(`mongodb://${url}:${port}/${dbname}`, {
+//   useNewUrlParser: true,
+// });
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
 });
 
