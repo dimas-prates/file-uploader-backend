@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 //importing static files to be access by /files route
 const path = require("path");
+const cors = require("cors");
+
 const app = express();
 
 // Database setup
@@ -15,6 +17,7 @@ mongoose.connect(`mongodb://${url}:${port}/${dbname}`, {
   useNewUrlParser: true,
 });
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
